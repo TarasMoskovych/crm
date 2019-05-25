@@ -23,8 +23,9 @@ mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useCreateIndex: true })
 app.use(passport.initialize());
 mPassport(passport);
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use('/assets', express.static('assets'));
+app.use(bodyParser.urlencoded({ extended: true }, { limit: '50mb' }));
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cors());
 
 app.use('/api/auth', auth);
