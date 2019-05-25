@@ -1,10 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const passport = require('passport');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 
 const keys = require('./config/keys');
+const mPassport = require('./middleware/passport');
 
 const auth = require('./routes/auth');
 const analytic = require('./routes/analytic');
@@ -18,6 +20,8 @@ mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useCreateIndex: true })
   .then(() => console.log('MongoDB connected'))
   .catch(error => console.log(error));
 
+app.use(passport.initialize());
+mPassport(passport);
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
