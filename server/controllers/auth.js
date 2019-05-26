@@ -18,12 +18,12 @@ module.exports.login = async(req, res) => {
     }
 
     return res.status(401).json({
-      message: 'incorrect password'
+      message: 'Incorrect password.'
     });
   }
 
   res.status(404).json({
-    message: 'user is not found'
+    message: 'User is not found.'
   });
 };
 
@@ -33,7 +33,7 @@ module.exports.register = async(req, res) => {
 
   if (candidate) {
     return res.status(409).json({
-      message: 'email is used'
+      message: 'Email is used.'
     });
   }
 

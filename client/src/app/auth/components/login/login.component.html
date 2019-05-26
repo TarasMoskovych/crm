@@ -1,3 +1,53 @@
-<p>
-  login works!
-</p>
+<form class="card" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="card-content">
+    <span class="card-title">Sign in system</span>
+    <div class="input-field">
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        [class.invalid]="form.get('email').invalid && form.get('email').touched"
+      >
+      <label for="email">Email:</label>
+        <ng-container *ngIf="form.get('email') as email">
+          <span
+            *ngIf="email.invalid && email.touched"
+            class="helper-text red-text">
+
+            <span *ngIf="email.errors['required']">
+              Please, enter Email.
+            </span>
+            <span *ngIf="email.errors['email']">
+              Please, enter valid Email.
+            </span>
+          </span>
+      </ng-container>
+    </div>
+    <div class="input-field">
+      <input
+        id="password"
+        type="password"
+        formControlName="password"
+        [class.invalid]="form.get('password').invalid && form.get('password').touched"
+      >
+      <label for="password">Password:</label>
+        <ng-container *ngIf="form.get('password') as password">
+          <span
+            *ngIf="password.invalid && password.touched"
+            class="helper-text red-text">
+
+            <span *ngIf="password.errors['required']">
+              Please, enter Password.
+            </span>
+            <span *ngIf="password.errors['minlength'] && password.errors['minlength']['requiredLength']">
+              Password should be greater than {{ password.errors['minlength']['requiredLength'] }} symbols.
+              Now is {{ password.errors['minlength']['actualLength'] }}
+            </span>
+          </span>
+        </ng-container>
+    </div>
+  </div>
+  <div class="card-action">
+    <button [disabled]="form.invalid || form.disabled" class="modal-action btn waves-effect">Sign in</button>
+  </div>
+</form>
