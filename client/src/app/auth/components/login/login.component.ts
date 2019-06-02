@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   private checkActions() {
-    const params = this.route.snapshot.params;
+    const params = this.route.snapshot.queryParams;
     let message = null;
 
     if (params['isRegistered']) {
@@ -48,6 +48,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
     if (params['sessionExpired']) {
       message = 'Session expired. Please, log in again.';
+    }
+
+    if (params['logout']) {
+      message = 'You logged out from system.';
     }
 
     if (message) {

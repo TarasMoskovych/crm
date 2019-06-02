@@ -1,3 +1,5 @@
+import { ElementRef } from '@angular/core';
+
 declare const M: any;
 
 export class MaterialService {
@@ -9,6 +11,10 @@ export class MaterialService {
 
   static reinitInputs() {
     M.updateTextFields();
+  }
+
+  static initializeFloatingButton(ref: ElementRef) {
+    M.FloatingActionButton.init(ref.nativeElement);
   }
 
 }

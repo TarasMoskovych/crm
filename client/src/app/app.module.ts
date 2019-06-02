@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AuthModule } from './auth/auth.module';
-import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+import { SystemModule } from './system/system.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +23,7 @@ import { TokenInterceptor } from './core/interceptors';
     CoreModule,
     SharedModule,
     AuthModule,
+    SystemModule,
     AppRoutingModule
   ],
   providers: [

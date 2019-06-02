@@ -35,6 +35,8 @@ export class AuthService {
   }
 
   setToken(token: string) {
+    if (!token) { return window.localStorage.removeItem('auth-token'); }
+
     this.token = token;
     window.localStorage.setItem('auth-token', token);
   }
