@@ -11,6 +11,7 @@ import { User } from 'src/app/shared/models';
 })
 export class AuthService {
   private token = null;
+  private user: User;
 
   constructor(private http: HttpClient) {}
 
@@ -40,6 +41,14 @@ export class AuthService {
 
   logout() {
     this.setToken(null);
+  }
+
+  getUser() {
+    return this.user;
+  }
+
+  setUser(user: User) {
+    this.user = user;
   }
 
 }

@@ -29,10 +29,15 @@ export class RegisterComponent implements OnInit {
   }
 
   private register() {
-    this.authService.register(this.form.value)
+    const user = this.form.value;
+
+    this.authService.register(user)
       .pipe(take(1))
       .subscribe(
-        () => this.router.navigate(['/login'], { queryParams: { isRegistered: true } }),
+        () => {
+          this.authService.setUser(user);
+          this.router.navigate(['/login'], { queryParams: { isRegistered: true } });
+        },
         (e) => {
           MaterialService.toast(e.error.message);
           this.form.enable();

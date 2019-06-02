@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { MaterialService } from 'src/app/shared/services';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
   form: FormGroup;
 
   constructor(
@@ -23,6 +23,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.checkActions();
     this.buildForm();
+  }
+
+  ngAfterViewInit() {
+    MaterialService.reinitInputs();
   }
 
   onSubmit() {
@@ -64,9 +68,11 @@ export class LoginComponent implements OnInit {
   }
 
   private buildForm() {
+    const user = this.authService.getUser();
+
     this.form = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(6)])
+      email: new FormControl(user && user.email || null, [Validators.required, Validators.email]),
+      password: new FormControl(user && user.password || null, [Validators.required, Validators.minLength(6)])
     });
   }
 

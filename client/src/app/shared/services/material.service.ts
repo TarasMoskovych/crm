@@ -6,4 +6,9 @@ export class MaterialService {
       html: message
     });
   }
+
+  static reinitInputs() {
+    M.updateTextFields();
+  }
+
 }
