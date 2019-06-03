@@ -1,0 +1,70 @@
+<div class="page-title">
+  <h4>
+    <a routerLink="/categories">Categories</a>
+    <i class="material-icons">keyboard_arrow_right</i>
+    {{ create ? 'Create' : 'Edit' }} Category
+  </h4>
+  <span *ngIf="!create" >
+    <button data-target="remove-category" class="btn btn-small modal-trigger red">
+      <i class="material-icons">delete</i>
+    </button>
+  </span>
+</div>
+
+<div class="row">
+  <form class="col s12 l6" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="input-field">
+      <input
+        id="name"
+        formControlName="name"
+        type="text"
+        [class.invalid]="form.get('name').invalid && form.get('name').touched"
+      >
+      <label for="name">Name</label>
+      <span *ngIf="form.get('name').invalid && form.get('name').touched" class="helper-text red-text">
+        Please, enter Category name.
+      </span>
+    </div>
+
+    <div>
+      <input
+        type="file"
+        class="hide"
+        (change)="onFileUpload($event)"
+        #file
+      >
+      <button
+        (click)="onFileInputClick()"
+        [disabled]="form.disabled"
+        type="button"
+        class="waves-effect waves-light btn orange lighten-2 mb2">
+
+        <i class="material-icons left">backup</i>
+        Load Image
+      </button>
+    </div>
+
+    <div>
+      <button [disabled]="form.invalid || form.disabled" class="waves-effect waves-light btn">
+        Save
+      </button>
+    </div>
+  </form>
+
+  <div class="col s12 l4 center">
+    <img *ngIf="imgPreview" class="responsive-img" style="height: 200px" [src]="imgPreview">
+  </div>
+</div>
+
+<div id="remove-category" class="modal" #removeCategory>
+  <div class="modal-content">
+    <h4>Remove Category</h4>
+    <p>Do you want to remove category {{ category ? category.name : 'test' }}?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
+    <button (click)="onRemoveCategory()" class="modal-close waves-effect waves-green btn-flat">
+      Remove
+    </button>
+  </div>
+</div>

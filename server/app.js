@@ -16,8 +16,11 @@ const position = require('./routes/position');
 
 const app = express();
 
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useCreateIndex: true })
-  .then(() => console.log('MongoDB connected'))
+mongoose.connect(keys.mongoURI, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false
+}).then(() => console.log('MongoDB connected'))
   .catch(error => console.log(error));
 
 app.use(passport.initialize());

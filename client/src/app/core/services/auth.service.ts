@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 
 import { CoreModule } from 'src/app/core/core.module';
 import { User } from 'src/app/shared/models';
+import { hadleHttpError } from 'src/app/shared/services/error-handler.service';
 
 @Injectable({
   providedIn: CoreModule
@@ -18,12 +19,13 @@ export class AuthService {
   login(user: User): Observable<{ token: string }> {
     return this.http.post<{ token: string }>('/api/auth/login', user)
       .pipe(
+        catchError(hadleHttpError),
         tap(({ token }) => this.setToken(token))
       );
   }
 
   register(user: User): Observable<User> {
-    return this.http.post<User>('/api/auth/register', user);
+    return this.http.post<User>('/api/auth/register', user).pipe(catchError(hadleHttpError));
   }
 
   isAuthenticated(): boolean {

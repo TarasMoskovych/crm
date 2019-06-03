@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SystemComponent } from './system.component';
 import {
   AnalyticsComponent,
+  CategoriesActionsComponent,
   CategoriesComponent,
   HistoryComponent,
   OrderComponent,
@@ -25,6 +26,14 @@ const routes: Routes = [
       {
         path: 'categories',
         component: CategoriesComponent
+      },
+      {
+        path: 'categories/new',
+        component: CategoriesActionsComponent
+      },
+      {
+        path: 'categories/:id',
+        component: CategoriesActionsComponent
       },
       {
         path: 'history',

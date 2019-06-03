@@ -9,10 +9,13 @@ import {
   ActionButtonComponent,
   AnalyticsComponent,
   CategoriesComponent,
+  CategoriesFormComponent,
+  CategoriesActionsComponent,
   HistoryComponent,
   NavigationComponent,
   OrderComponent,
-  OverviewComponent
+  OverviewComponent,
+  PositionsFormComponent
 } from './components';
 
 @NgModule({
@@ -21,10 +24,13 @@ import {
     ActionButtonComponent,
     AnalyticsComponent,
     CategoriesComponent,
+    CategoriesFormComponent,
+    CategoriesActionsComponent,
     HistoryComponent,
     NavigationComponent,
     OrderComponent,
-    OverviewComponent
+    OverviewComponent,
+    PositionsFormComponent
   ],
   imports: [
     CommonModule,

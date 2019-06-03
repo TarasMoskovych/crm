@@ -41,7 +41,7 @@ module.exports.update = async(req, res) => {
   }
 
   try {
-    const category = await Category.findOneAndUpdate({ _id: req.params.id, $get: updated, new: true });
+    const category = await Category.findOneAndUpdate({ _id: req.params.id }, { $set: updated }, { new: true });
 
     res.status(200).json(category);
   } catch(e) {
@@ -54,7 +54,7 @@ module.exports.remove = async(req, res) => {
     await Category.remove({ _id: req.params.id });
     await Position.remove({ category: req.params.id });
 
-    res.status(200).json({ message: 'category was removed' });
+    res.status(200).json({ message: `Category was removed.` });
   } catch(e) {
     errorHandler(res, e);
   }
