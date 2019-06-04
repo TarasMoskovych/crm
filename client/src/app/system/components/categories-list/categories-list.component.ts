@@ -6,11 +6,11 @@ import { CategoriesService } from 'src/app/core/services';
 import { Category } from 'src/app/shared/models';
 
 @Component({
-  selector: 'app-categories',
-  templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss']
+  selector: 'app-categories-list',
+  templateUrl: './categories-list.component.html',
+  styleUrls: ['./categories-list.component.scss']
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesListComponent implements OnInit {
   categories$: Observable<Category[]>;
 
   constructor(private categoriesService: CategoriesService) { }

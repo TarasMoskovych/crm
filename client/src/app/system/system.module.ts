@@ -8,7 +8,7 @@ import { SystemComponent } from './system.component';
 import {
   ActionButtonComponent,
   AnalyticsComponent,
-  CategoriesComponent,
+  CategoriesListComponent,
   CategoriesFormComponent,
   CategoriesActionsComponent,
   HistoryComponent,
@@ -23,7 +23,7 @@ import {
     SystemComponent,
     ActionButtonComponent,
     AnalyticsComponent,
-    CategoriesComponent,
+    CategoriesListComponent,
     CategoriesFormComponent,
     CategoriesActionsComponent,
     HistoryComponent,

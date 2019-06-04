@@ -5,7 +5,7 @@ import { SystemComponent } from './system.component';
 import {
   AnalyticsComponent,
   CategoriesActionsComponent,
-  CategoriesComponent,
+  CategoriesListComponent,
   HistoryComponent,
   OrderComponent,
   OverviewComponent
@@ -25,7 +25,7 @@ const routes: Routes = [
       },
       {
         path: 'categories',
-        component: CategoriesComponent
+        component: CategoriesListComponent
       },
       {
         path: 'categories/new',
