@@ -1,16 +1,30 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, OnChanges, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  ViewChild,
+  Output,
+  OnInit,
+  OnChanges,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ElementRef,
+  EventEmitter,
+  ChangeDetectorRef
+} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { MaterialService } from 'src/app/shared/services';
 import { Category } from 'src/app/shared/models';
+import { ImageService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-categories-form',
   templateUrl: './categories-form.component.html',
   styleUrls: ['./categories-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CategoriesFormComponent implements OnInit, OnChanges {
+export class CategoriesFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() create: boolean;
   @Input() category: Category;
   @Input() savedCategory: Category;
@@ -18,20 +32,29 @@ export class CategoriesFormComponent implements OnInit, OnChanges {
   @Output() remove = new EventEmitter<Category>();
   @ViewChild('file') file: ElementRef;
 
+  private s$: Subscription;
+
   img: File;
   imgPreview: any;
   form: FormGroup;
 
-  constructor() { }
+  constructor(
+    private imageService: ImageService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
     this.buildForm();
-    // MaterialService.
+    this.onFileUploading();
   }
 
   ngOnChanges() {
     this.reinitForm();
     this.clearForm();
+  }
+
+  ngOnDestroy() {
+    if (this.s$) { this.s$.unsubscribe(); }
   }
 
   onSubmit() {
@@ -45,19 +68,22 @@ export class CategoriesFormComponent implements OnInit, OnChanges {
 
   onFileUpload(e: Event) {
     const file = (e.target as HTMLInputElement).files[0];
-    const reader = new FileReader();
 
+    if (!file) { return; }
+
+    this.imageService.uploadFile(file);
     this.img = file;
-
-    reader.onload = () => {
-      this.imgPreview = reader.result;
-    };
-
-    reader.readAsDataURL(file);
   }
 
   onRemoveCategory() {
     this.remove.emit(this.category);
+  }
+
+  private onFileUploading() {
+    this.s$ = this.imageService.channel$.subscribe((data: FileReader) => {
+      this.imgPreview = data;
+      this.cdr.detectChanges();
+    });
   }
 
   private reinitForm() {
