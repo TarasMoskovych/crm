@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, OnChanges, ViewChild, ElementRef, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, OnChanges, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { MaterialService } from 'src/app/shared/services';
@@ -10,14 +10,13 @@ import { Category } from 'src/app/shared/models';
   styleUrls: ['./categories-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class CategoriesFormComponent implements OnInit, OnChanges, AfterViewInit {
+export class CategoriesFormComponent implements OnInit, OnChanges {
   @Input() create: boolean;
   @Input() category: Category;
   @Input() savedCategory: Category;
   @Output() save = new EventEmitter<{ category: Category, file: File }>();
   @Output() remove = new EventEmitter<Category>();
   @ViewChild('file') file: ElementRef;
-  @ViewChild('removeCategory') removeCategory: ElementRef;
 
   img: File;
   imgPreview: any;
@@ -33,10 +32,6 @@ export class CategoriesFormComponent implements OnInit, OnChanges, AfterViewInit
   ngOnChanges() {
     this.reinitForm();
     this.clearForm();
-  }
-
-  ngAfterViewInit() {
-    MaterialService.initializeModal(this.removeCategory);
   }
 
   onSubmit() {

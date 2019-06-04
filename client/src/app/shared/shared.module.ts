@@ -1,13 +1,14 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
 
-import { LoaderComponent } from './components';
+import { LoaderComponent, ModalComponent } from './components';
 
 @NgModule({
   declarations: [
-    LoaderComponent
+    LoaderComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +18,9 @@ import { LoaderComponent } from './components';
   exports: [
     FormsModule,
     ReactiveFormsModule,
-    LoaderComponent
-  ]
+    LoaderComponent,
+    ModalComponent
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule { }
