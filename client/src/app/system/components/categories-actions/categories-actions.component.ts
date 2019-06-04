@@ -1,34 +1,42 @@
-import { MaterialService } from 'src/app/shared/services';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { CategoriesService } from 'src/app/core/services';
-import { Category, Message } from 'src/app/shared/models';
+import { CategoriesService, PositionsService } from 'src/app/core/services';
+import { Category, Position, Message } from 'src/app/shared/models';
+import { MaterialService } from 'src/app/shared/services';
 
 @Component({
   selector: 'app-categories-actions',
   template: `
     <app-categories-form
-      (save)="onSave($event)"
-      (remove)="onRemove($event)"
+      (save)="onSaveCategory($event)"
+      (remove)="onRemoveCategory($event)"
       [create]="create"
       [category]="category"
       [savedCategory]="savedCategory">
     </app-categories-form>
+    <app-positions-form
+      *ngIf="category"
+      (save)="onSavePosition($event)"
+      (remove)="onRemovePosition($event)"
+      [positions]="positions"
+    ></app-positions-form>
   `,
   styleUrls: ['./categories-actions.component.scss']
 })
 export class CategoriesActionsComponent implements OnInit {
-  // <app-positions-form></app-positions-form>
   id: string;
   category: Category;
   savedCategory: Category;
+  positions: Position[];
   create = true;
 
   constructor(
     private categoriesService: CategoriesService,
+    private positionsService: PositionsService,
     private activatedRouter: ActivatedRoute,
     private router: Router
   ) { }
@@ -37,7 +45,7 @@ export class CategoriesActionsComponent implements OnInit {
     this.getCategory();
   }
 
-  onSave({ category, file }) {
+  onSaveCategory({ category, file }) {
     let s$: Observable<Category>;
 
     if (this.create) {
@@ -51,12 +59,37 @@ export class CategoriesActionsComponent implements OnInit {
     });
   }
 
-  onRemove(category: Category) {
+  onRemoveCategory(category: Category) {
     this.categoriesService.remove(category._id)
       .pipe(first())
       .subscribe((response: Message) => {
         MaterialService.toast(response.message);
         this.router.navigate(['/categories']);
+      });
+  }
+
+  onSavePosition({ position, resolve, complete }) {
+    const isUpdated = !!position._id;
+    const method = isUpdated ? 'update' : 'create';
+
+    this.positionsService[method]({ ...position, category: this.category._id })
+      .pipe(first())
+      .subscribe(
+        (data: Position) => {
+          isUpdated ? this.updatePositions(position, data) : this.positions = [...this.positions, data];
+          resolve(data.name);
+          complete(`Position ${data.name} was ${isUpdated ? 'updated' : 'created'}!`);
+        },
+        (e: HttpErrorResponse) => complete(e.message)
+      );
+  }
+
+  onRemovePosition(position: Position) {
+    this.positionsService.remove(position)
+      .pipe(first())
+      .subscribe((message: Message) => {
+        // @TODO: Add toast
+        this.updatePositions(position);
       });
   }
 
@@ -70,7 +103,26 @@ export class CategoriesActionsComponent implements OnInit {
       .pipe(first())
       .subscribe((category: Category) => {
         this.category = category;
+        this.getPositions();
       });
+  }
+
+  private getPositions() {
+    this.positionsService.getAllByCategoryId(this.category._id)
+      .pipe(first())
+      .subscribe((positions: Position[]) => {
+        this.positions = positions;
+      });
+  }
+
+  private updatePositions(position: Position, updated?: Position) {
+    const idx = this.positions.findIndex((p: Position) => p._id === position._id);
+
+    if (idx > -1) {
+      updated ? this.positions.splice(idx, 1, updated) : this.positions.splice(idx, 1);
+
+      this.positions = [...this.positions];
+    }
   }
 
 }

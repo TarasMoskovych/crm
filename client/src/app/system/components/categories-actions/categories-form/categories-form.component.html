@@ -52,7 +52,10 @@
   </form>
 
   <div class="col s12 l4 center">
-    <img *ngIf="imgPreview" class="responsive-img" style="height: 200px" [src]="imgPreview">
+    <img *ngIf="imgPreview; else loader" class="responsive-img" style="height: 200px" [src]="imgPreview">
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
   </div>
 </div>
 
@@ -63,7 +66,7 @@
   </modal-content>
   <modal-footer>
     <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
-    <button (click)="onRemoveCategory()" class="modal-close waves-effect waves-green btn-flat">
+    <button (click)="onRemoveCategory()" class="btn waves-effect red">
       Remove
     </button>
   </modal-footer>

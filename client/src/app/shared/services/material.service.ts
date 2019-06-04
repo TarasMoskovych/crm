@@ -18,7 +18,7 @@ export class MaterialService {
   }
 
   static initializeModal(ref: ElementRef) {
-    M.Modal.init(ref.nativeElement);
+    return M.Modal.init(ref.nativeElement);
   }
 
 }

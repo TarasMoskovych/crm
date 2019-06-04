@@ -21,7 +21,7 @@ export class CategoriesListComponent implements OnInit {
   }
 
   getCategories() {
-    this.categories$ = this.categoriesService.getAll().pipe(delay(1000));
+    this.categories$ = this.categoriesService.getAll();
   }
 
 }
