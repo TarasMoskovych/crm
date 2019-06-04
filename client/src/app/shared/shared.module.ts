@@ -3,10 +3,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
 
-import { LoaderComponent, ModalComponent } from './components';
+import { ActionButtonComponent, LoaderComponent, ModalComponent } from './components';
 
 @NgModule({
   declarations: [
+    ActionButtonComponent,
     LoaderComponent,
     ModalComponent
   ],
@@ -18,6 +19,7 @@ import { LoaderComponent, ModalComponent } from './components';
   exports: [
     FormsModule,
     ReactiveFormsModule,
+    ActionButtonComponent,
     LoaderComponent,
     ModalComponent
   ],

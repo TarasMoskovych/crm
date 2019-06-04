@@ -6,7 +6,6 @@ import { SharedModule } from '../shared/shared.module';
 
 import { SystemComponent } from './system.component';
 import {
-  ActionButtonComponent,
   AnalyticsComponent,
   CategoriesListComponent,
   CategoriesFormComponent,
@@ -21,7 +20,6 @@ import {
 @NgModule({
   declarations: [
     SystemComponent,
-    ActionButtonComponent,
     AnalyticsComponent,
     CategoriesListComponent,
     CategoriesFormComponent,

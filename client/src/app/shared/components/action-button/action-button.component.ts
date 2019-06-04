@@ -1,6 +1,6 @@
-import { Component, AfterViewInit, ChangeDetectionStrategy, ViewChild, ElementRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
-import { MaterialService } from 'src/app/shared/services';
+import { MaterialService } from '../../services';
 
 @Component({
   selector: 'app-action-button',

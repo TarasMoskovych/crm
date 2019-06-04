@@ -1,4 +1,3 @@
-export * from './action-button/action-button.component';
 export * from './analytics/analytics.component';
 export * from './categories-list/categories-list.component';
 export * from './categories-actions/categories-actions.component';
