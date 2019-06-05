@@ -41,9 +41,11 @@ module.exports.update = async(req, res) => {
 
 module.exports.remove = async(req, res) => {
   try {
-    await Position.remove({ _id: req.params.id });
+    const id = req.params.id;
+    const position = await Position.findById(id);
+    await Position.remove({ _id: id });
 
-    res.status(200).json({ message: 'position was removed' });
+    res.status(200).json({ message: `Position ${position.name} was removed.` });
   } catch(e) {
     errorHandler(res, e);
   }

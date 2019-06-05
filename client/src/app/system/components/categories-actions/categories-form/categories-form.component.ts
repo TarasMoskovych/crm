@@ -100,8 +100,7 @@ export class CategoriesFormComponent implements OnInit, OnChanges, OnDestroy {
   private clearForm() {
     if (this.savedCategory) {
       this.category = this.savedCategory;
-      this.form.enable();
-      this.imgPreview = this.savedCategory.imageSrc;
+      this.populateForm(this.category);
 
       MaterialService.toast(`Category ${this.savedCategory.name} was ${this.create ? 'added' : 'updated'}.`);
     }

@@ -37,7 +37,7 @@
 </div>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <app-modal modalId="create-position">
+  <app-modal modalId="create-position" #updatePosition>
     <modal-content>
       <h4 class="mb1">Add Position</h4>
       <div class="input-field">
@@ -82,3 +82,16 @@
     </modal-footer>
   </app-modal>
 </form>
+
+<app-modal modalId="remove-position" #removePosition>
+  <modal-content>
+    <h4>Remove Position</h4>
+    <p>Do you want to remove {{ selectedPosition?.name ? selectedPosition.name : ' ' }} position?</p>
+  </modal-content>
+  <modal-footer>
+    <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
+    <button (click)="onPositionRemoveConfirm()" class="btn waves-effect red">
+      Remove
+    </button>
+  </modal-footer>
+</app-modal>

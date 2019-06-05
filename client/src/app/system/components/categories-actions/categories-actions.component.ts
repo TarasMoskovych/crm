@@ -56,6 +56,10 @@ export class CategoriesActionsComponent implements OnInit {
 
     s$.pipe(first()).subscribe((newCategory: Category) => {
       this.savedCategory = newCategory;
+
+      if (this.create) {
+        this.router.navigate([`/categories/${newCategory._id}`]);
+      }
     });
   }
 
@@ -87,8 +91,8 @@ export class CategoriesActionsComponent implements OnInit {
   onRemovePosition(position: Position) {
     this.positionsService.remove(position)
       .pipe(first())
-      .subscribe((message: Message) => {
-        // @TODO: Add toast
+      .subscribe((data: Message) => {
+        MaterialService.toast(data.message);
         this.updatePositions(position);
       });
   }

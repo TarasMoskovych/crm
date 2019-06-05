@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { delay } from 'rxjs/operators';
 
 import { CategoriesService } from 'src/app/core/services';
 import { Category } from 'src/app/shared/models';
@@ -16,11 +15,10 @@ export class CategoriesListComponent implements OnInit {
   constructor(private categoriesService: CategoriesService) { }
 
   ngOnInit() {
-
     this.getCategories();
   }
 
-  getCategories() {
+  private getCategories() {
     this.categories$ = this.categoriesService.getAll();
   }
 
