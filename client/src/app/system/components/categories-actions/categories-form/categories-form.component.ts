@@ -27,8 +27,7 @@ import { ImageService } from 'src/app/core/services';
 export class CategoriesFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() create: boolean;
   @Input() category: Category;
-  @Input() savedCategory: Category;
-  @Output() save = new EventEmitter<{ category: Category, file: File }>();
+  @Output() save = new EventEmitter<{ category: Category, file: File, callback: (msg: string, category: Category) => void }>();
   @Output() remove = new EventEmitter<Category>();
   @ViewChild('file') file: ElementRef;
 
@@ -49,8 +48,7 @@ export class CategoriesFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges() {
-    this.reinitForm();
-    this.clearForm();
+    if (this.category) { this.populateForm(this.category); }
   }
 
   ngOnDestroy() {
@@ -58,8 +56,15 @@ export class CategoriesFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onSubmit() {
+    const callback = (msg?: string, category?: Category) => {
+      this.form.enable();
+      this.populateForm(category ? category: null);
+
+      if (msg) { MaterialService.toast(msg); }
+    };
+
     this.form.disable();
-    this.save.emit({ category: this.form.value, file: this.img });
+    this.save.emit({ category: this.form.value, file: this.img, callback });
   }
 
   onFileInputClick() {
@@ -86,38 +91,20 @@ export class CategoriesFormComponent implements OnInit, OnChanges, OnDestroy {
     });
   }
 
-  private reinitForm() {
-    if (!this.create && this.form) {
-      this.form.disable();
-    }
-
-    if (this.category) {
-      this.populateForm(this.category);
-      MaterialService.reinitInputs();
-    }
-  }
-
-  private clearForm() {
-    if (this.savedCategory) {
-      this.category = this.savedCategory;
-      this.populateForm(this.category);
-
-      MaterialService.toast(`Category ${this.savedCategory.name} was ${this.create ? 'added' : 'updated'}.`);
-    }
-  }
-
   private buildForm() {
     this.form = new FormGroup({
       name: new FormControl(null, Validators.required)
     });
   }
 
-  private populateForm(category: Category) {
-    this.imgPreview = category.imageSrc;
-    this.form.setValue({
-      name: category.name
-    });
+  private populateForm(category?: Category) {
     this.form.enable();
+    this.form.reset({ name: category ? category.name : null });
+    MaterialService.reinitInputs();
+
+    if (category) {
+      this.imgPreview = category.imageSrc;
+    }
   }
 
 }

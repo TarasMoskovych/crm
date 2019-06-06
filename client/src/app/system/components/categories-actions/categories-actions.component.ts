@@ -15,8 +15,7 @@ import { MaterialService } from 'src/app/shared/services';
       (save)="onSaveCategory($event)"
       (remove)="onRemoveCategory($event)"
       [create]="create"
-      [category]="category"
-      [savedCategory]="savedCategory">
+      [category]="category">
     </app-categories-form>
     <app-positions-form
       *ngIf="category"
@@ -30,7 +29,6 @@ import { MaterialService } from 'src/app/shared/services';
 export class CategoriesActionsComponent implements OnInit {
   id: string;
   category: Category;
-  savedCategory: Category;
   positions: Position[];
   create = true;
 
@@ -45,7 +43,7 @@ export class CategoriesActionsComponent implements OnInit {
     this.getCategory();
   }
 
-  onSaveCategory({ category, file }) {
+  onSaveCategory({ category, file, callback }) {
     let s$: Observable<Category>;
 
     if (this.create) {
@@ -54,13 +52,14 @@ export class CategoriesActionsComponent implements OnInit {
       s$ = this.categoriesService.update(this.id, category.name, file);
     }
 
-    s$.pipe(first()).subscribe((newCategory: Category) => {
-      this.savedCategory = newCategory;
+    s$.pipe(first()).subscribe(
+      (newCategory: Category) => {
+        callback(`Category ${newCategory.name} was ${this.create ? 'added' : 'updated'}.`, newCategory);
 
-      if (this.create) {
-        this.router.navigate([`/categories/${newCategory._id}`]);
-      }
-    });
+        if (this.create) { this.router.navigate([`/categories/${newCategory._id}`]); }
+      },
+      (callback)
+    );
   }
 
   onRemoveCategory(category: Category) {

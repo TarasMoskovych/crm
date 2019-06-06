@@ -51,10 +51,12 @@ module.exports.update = async(req, res) => {
 
 module.exports.remove = async(req, res) => {
   try {
-    await Category.remove({ _id: req.params.id });
-    await Position.remove({ category: req.params.id });
+    const id = req.params.id;
+    const category = await Category.findById(id);
+    await Category.remove({ _id: id });
+    await Position.remove({ category: id });
 
-    res.status(200).json({ message: `Category was removed.` });
+    res.status(200).json({ message: `Category ${category.name} was removed.` });
   } catch(e) {
     errorHandler(res, e);
   }

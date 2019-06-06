@@ -30,8 +30,6 @@ export class PositionsFormComponent implements OnInit, AfterViewInit {
   id: string;
   selectedPosition: Position;
 
-  constructor() { }
-
   ngOnInit() {
     this.buildForm();
   }

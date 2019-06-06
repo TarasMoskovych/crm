@@ -4,8 +4,12 @@
     <i class="material-icons">keyboard_arrow_right</i>
     {{ create ? 'Create' : 'Edit' }} Category
   </h4>
-  <span *ngIf="!create" >
-    <button data-target="remove-category" class="btn btn-small modal-trigger red">
+
+  <span *ngIf="!create">
+     <button routerLink="/categories/new" class="btn btn-small green">
+      <i class="material-icons">add</i>
+    </button>
+    <button data-target="remove-category" class="btn btn-small remove-position-btn modal-trigger red">
       <i class="material-icons">delete</i>
     </button>
   </span>
@@ -53,7 +57,7 @@
 
   <div class="col s12 l4 center">
     <img *ngIf="imgPreview; else loader" class="responsive-img" style="height: 200px" [src]="imgPreview">
-    <ng-template #loader>
+    <ng-template *ngIf="!create" #loader>
       <app-loader></app-loader>
     </ng-template>
   </div>

@@ -4,6 +4,7 @@ import { throwError } from 'rxjs';
 import { MaterialService } from 'src/app/shared/services';
 
 export const hadleHttpError = (e: HttpErrorResponse) => {
-  MaterialService.toast(e.statusText);
+  console.warn(e);
+  MaterialService.toast('The site is unable to respond.');
   return throwError(e);
 };
