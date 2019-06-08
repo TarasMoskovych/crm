@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 
 import { MaterialService } from '../../services';
 import { Modal } from 'src/app/shared/models';
@@ -9,7 +9,7 @@ import { Modal } from 'src/app/shared/models';
   styleUrls: ['./modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ModalComponent implements AfterViewInit {
+export class ModalComponent implements AfterViewInit, OnDestroy {
   @Input() modalId: string;
   @Input() className = '';
   @ViewChild('modal') modalRef: ElementRef;
@@ -30,6 +30,10 @@ export class ModalComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.modal = MaterialService.initializeModal(this.modalRef);
+  }
+
+  ngOnDestroy() {
+    this.modal.destroy();
   }
 
 }

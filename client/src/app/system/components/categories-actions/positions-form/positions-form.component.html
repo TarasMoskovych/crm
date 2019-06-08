@@ -17,7 +17,7 @@
           class="collection-item collection-item-icon">
 
           <span>
-            {{ position.name }} <strong>{{ position.cost }}</strong>
+            {{ position.name }} <strong>{{ position.cost | currency }}</strong>
           </span>
           <span>
             <i (click)="onPositionRemove($event, position)" class="material-icons">delete</i>

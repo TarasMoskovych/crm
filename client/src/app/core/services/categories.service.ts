@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { CoreModule } from '../core.module';
 import { Category, Message } from 'src/app/shared/models';
-import { hadleHttpError } from 'src/app/shared/services/error-handler.service';
+import { hadleHttpError } from 'src/app/shared/services/helpers';
 
 @Injectable({
   providedIn: CoreModule

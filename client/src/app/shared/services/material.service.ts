@@ -21,4 +21,8 @@ export class MaterialService {
     return M.Modal.init(ref.nativeElement);
   }
 
+  static initializeTooltip(ref: Element) {
+    return M.Tooltip.init(ref);
+  }
+
 }

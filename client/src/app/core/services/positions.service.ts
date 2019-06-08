@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 
 import { CoreModule } from 'src/app/core/core.module';
 import { Message, Position } from 'src/app/shared/models';
-import { hadleHttpError } from 'src/app/shared/services/error-handler.service';
+import { hadleHttpError } from 'src/app/shared/services/helpers';
 
 @Injectable({
   providedIn: CoreModule

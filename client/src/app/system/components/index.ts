@@ -4,6 +4,8 @@ export * from './categories-actions/categories-actions.component';
 export * from './categories-actions/categories-form/categories-form.component';
 export * from './categories-actions/positions-form/positions-form.component';
 export * from './history/history.component';
+export * from './history/history-filter/history-filter.component';
+export * from './history/history-list/history-list.component';
 export * from './navigation/navigation.component';
 export * from './order/order.component';
 export * from './order/order-categories/order-categories.component';

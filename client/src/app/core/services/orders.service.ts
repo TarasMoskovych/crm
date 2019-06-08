@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { CoreModule } from 'src/app/core/core.module';
 import { Position, OrderItem, Order } from 'src/app/shared/models';
-import { hadleHttpError } from 'src/app/shared/services/error-handler.service';
+import { hadleHttpError, calculateTotals } from 'src/app/shared/services/helpers';
 
 @Injectable({
   providedIn: CoreModule
@@ -20,6 +20,14 @@ export class OrdersService {
 
   create(order: Order): Observable<Order> {
     return this.http.post<Order>('/api/order', order).pipe(catchError(hadleHttpError));
+  }
+
+  get(params: any = {}): Observable<Order[]> {
+    return this.http.get<Order[]>('/api/order', {
+      params: new HttpParams({
+        fromObject: params
+      })
+    }).pipe(catchError(hadleHttpError));
   }
 
   add(position: Position) {
@@ -45,10 +53,6 @@ export class OrdersService {
     this.list.length = 0;
   }
 
-  private calculateTotals() {
-    return this.list.reduce((acc: number, position: Position) => acc + (position.cost * position.quantity), 0);
-  }
-
   private updateList(position: OrderItem) {
     const canditate = this.list.find((p: Position) => p._id === position._id);
 
@@ -57,7 +61,7 @@ export class OrdersService {
   }
 
   private _dispatch() {
-    this.channel.next({ list: this.list, price: this.calculateTotals() });
+    this.channel.next({ list: this.list, price: calculateTotals(this.list) });
   }
 
 }

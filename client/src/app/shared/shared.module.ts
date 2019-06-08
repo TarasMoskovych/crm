@@ -4,12 +4,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { ActionButtonComponent, LoaderComponent, ModalComponent } from './components';
+import { TooltipDirective } from './directives';
 
 @NgModule({
   declarations: [
     ActionButtonComponent,
     LoaderComponent,
-    ModalComponent
+    ModalComponent,
+    TooltipDirective
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { ActionButtonComponent, LoaderComponent, ModalComponent } from './compon
     ReactiveFormsModule,
     ActionButtonComponent,
     LoaderComponent,
-    ModalComponent
+    ModalComponent,
+    TooltipDirective
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

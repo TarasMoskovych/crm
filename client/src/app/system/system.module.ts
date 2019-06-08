@@ -11,6 +11,8 @@ import {
   CategoriesFormComponent,
   CategoriesActionsComponent,
   HistoryComponent,
+  HistoryFilterComponent,
+  HistoryListComponent,
   NavigationComponent,
   OrderComponent,
   OrderCategoriesComponent,
@@ -32,7 +34,9 @@ import {
     OrderCategoriesComponent,
     OrderPositionsComponent,
     OverviewComponent,
-    PositionsFormComponent
+    PositionsFormComponent,
+    HistoryListComponent,
+    HistoryFilterComponent
   ],
   imports: [
     CommonModule,

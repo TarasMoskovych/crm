@@ -30,7 +30,7 @@
           <tr *ngFor="let item of data.list">
             <td>{{ item.name }}</td>
             <td>{{ item.quantity }}</td>
-            <td>{{ item.cost }}</td>
+            <td>{{ item.cost | currency }}</td>
             <td>
               <i (click)="onPositionRemove(item)" class="material-icons pointer">delete</i>
             </td>
@@ -39,7 +39,7 @@
       </tbody>
     </table>
     <div class="order-summary" *ngIf="data" >
-      <p>Summary: <strong>{{ data.price }}</strong></p>
+      <p>Summary: <strong>{{ data.price | currency }}</strong></p>
     </div>
   </modal-content>
   <modal-footer>

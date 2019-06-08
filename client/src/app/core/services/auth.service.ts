@@ -5,7 +5,7 @@ import { tap, catchError } from 'rxjs/operators';
 
 import { CoreModule } from 'src/app/core/core.module';
 import { User } from 'src/app/shared/models';
-import { hadleHttpError } from 'src/app/shared/services/error-handler.service';
+import { hadleHttpError } from 'src/app/shared/services/helpers';
 
 @Injectable({
   providedIn: CoreModule
