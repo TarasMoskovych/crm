@@ -25,7 +25,7 @@ export class NavigationComponent {
     },
     {
       url: '/order',
-      name: 'Create Order'
+      name: 'Order'
     },
     {
       url: '/categories',

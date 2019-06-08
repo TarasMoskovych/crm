@@ -8,7 +8,9 @@ import {
   CategoriesListComponent,
   HistoryComponent,
   OrderComponent,
-  OverviewComponent
+  OverviewComponent,
+  OrderCategoriesComponent,
+  OrderPositionsComponent
 } from './components';
 
 import { AuthGuard } from './../core/guards';
@@ -41,7 +43,17 @@ const routes: Routes = [
       },
       {
         path: 'order',
-        component: OrderComponent
+        component: OrderComponent,
+        children: [
+          {
+            path: '',
+            component: OrderCategoriesComponent
+          },
+          {
+            path: ':id',
+            component: OrderPositionsComponent
+          }
+        ]
       },
       {
         path: 'overview',

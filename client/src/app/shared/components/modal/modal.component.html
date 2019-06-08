@@ -1,4 +1,4 @@
-<div [id]="modalId" class="modal" #modal>
+<div [id]="modalId" [class]="'modal ' + className" #modal>
   <div class="modal-content">
     <ng-content select="modal-content"></ng-content>
   </div>

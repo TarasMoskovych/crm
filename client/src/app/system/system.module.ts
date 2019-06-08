@@ -13,6 +13,8 @@ import {
   HistoryComponent,
   NavigationComponent,
   OrderComponent,
+  OrderCategoriesComponent,
+  OrderPositionsComponent,
   OverviewComponent,
   PositionsFormComponent
 } from './components';
@@ -27,6 +29,8 @@ import {
     HistoryComponent,
     NavigationComponent,
     OrderComponent,
+    OrderCategoriesComponent,
+    OrderPositionsComponent,
     OverviewComponent,
     PositionsFormComponent
   ],

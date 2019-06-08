@@ -11,6 +11,7 @@ import { Modal } from 'src/app/shared/models';
 })
 export class ModalComponent implements AfterViewInit {
   @Input() modalId: string;
+  @Input() className = '';
   @ViewChild('modal') modalRef: ElementRef;
 
   private modal: Modal;

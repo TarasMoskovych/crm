@@ -1,3 +1,53 @@
-<p>
-  order works!
-</p>
+<div class="page-title">
+  <h4>
+    <a routerLink="/order">Order</a>
+    <ng-container *ngIf="!isRoot">
+      <i class="material-icons">keyboard_arrow_right</i>
+      Create order
+    </ng-container>
+  </h4>
+  <button *ngIf="data?.list.length > 0" class="waves-effect btn grey darken-1 modal-trigger" data-target="create-order">
+    Complete
+  </button>
+</div>
+
+<router-outlet></router-outlet>
+
+<app-modal modalId="create-order" className="modal-fixed-footer" #createOrder>
+  <modal-content>
+    <h4 class="mb1">Your Order:</h4>
+    <table class="highlight">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="data">
+          <tr *ngFor="let item of data.list">
+            <td>{{ item.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.cost }}</td>
+            <td>
+              <i (click)="onPositionRemove(item)" class="material-icons pointer">delete</i>
+            </td>
+          </tr>
+      </ng-container>
+      </tbody>
+    </table>
+    <div class="order-summary" *ngIf="data" >
+      <p>Summary: <strong>{{ data.price }}</strong></p>
+    </div>
+  </modal-content>
+  <modal-footer>
+    <button class="modal-close waves-effect waves-black btn-flat">Cancel</button>
+    <button
+      (click)="onOrderApply()"
+      [disabled]="data ? data.list.length === 0 || loading : loading"
+      class="modal-action btn waves-effect"
+    >Apply</button>
+  </modal-footer>
+</app-modal>

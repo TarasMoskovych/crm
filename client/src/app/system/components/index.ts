@@ -6,4 +6,6 @@ export * from './categories-actions/positions-form/positions-form.component';
 export * from './history/history.component';
 export * from './navigation/navigation.component';
 export * from './order/order.component';
+export * from './order/order-categories/order-categories.component';
+export * from './order/order-positions/order-positions.component';
 export * from './overview/overview.component';
