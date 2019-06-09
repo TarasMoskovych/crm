@@ -5,3 +5,5 @@ export * from './position.model';
 export * from './modal.model';
 export * from './order.model';
 export * from './tooltip.model';
+export * from './filter.model';
+export * from './datepicker.model';

@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Order } from 'src/app/shared/models';
+import { Order, Filter } from 'src/app/shared/models';
 import { OrdersService } from 'src/app/core/services';
-
-const STEP = 2;
+import { STEP } from 'src/app/configs';
 
 @Component({
   selector: 'app-history',
@@ -19,6 +18,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   isFilterVisible = false;
   offset = 0;
   limit = STEP;
+  filter: Filter = {};
   isMoreOrders = true;
   orders: Order[] = [];
 
@@ -39,8 +39,22 @@ export class HistoryComponent implements OnInit, OnDestroy {
     this.getOrders();
   }
 
+  onFilterApply(filter: Filter) {
+    this.orders.length = 0;
+    this.offset = 0;
+    this.reloading = true;
+    this.filter = filter;
+    this.getOrders();
+  }
+
+  isFiltered(): boolean {
+    return Object.keys(this.filter).length > 0;
+  }
+
   private getOrders() {
-    const params = { offset: this.offset, limit: this.limit };
+    const params = Object.assign({}, this.filter, {
+      offset: this.offset, limit: this.limit
+    });
 
     this.s$ = this.ordersService.get(params).subscribe((orders: Order[]) => {
       this.orders = [...this.orders, ...orders];

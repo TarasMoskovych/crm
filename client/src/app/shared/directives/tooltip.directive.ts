@@ -9,7 +9,7 @@ export class TooltipDirective implements OnDestroy {
   tooltip: Tooltip;
 
   constructor(ref: ElementRef) {
-    this.tooltip = MaterialService.initializeTooltip(ref.nativeElement);
+    this.tooltip = MaterialService.initializeTooltip(ref);
   }
 
   ngOnDestroy() {

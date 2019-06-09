@@ -21,8 +21,16 @@ export class MaterialService {
     return M.Modal.init(ref.nativeElement);
   }
 
-  static initializeTooltip(ref: Element) {
-    return M.Tooltip.init(ref);
+  static initializeTooltip(ref: ElementRef) {
+    return M.Tooltip.init(ref.nativeElement);
+  }
+
+  static initializeDatePicker(ref: ElementRef, onClose?: () => void) {
+    return M.Datepicker.init(ref.nativeElement, {
+      format: 'dd.mm.yyyy',
+      showClearBtn: true,
+      onClose
+    });
   }
 
 }

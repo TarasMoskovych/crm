@@ -3,7 +3,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
 
-import { ActionButtonComponent, LoaderComponent, ModalComponent } from './components';
+import {
+  ActionButtonComponent,
+  LoaderComponent,
+  ModalComponent ,
+  DatePickerComponent
+} from './components';
 import { TooltipDirective } from './directives';
 
 @NgModule({
@@ -11,7 +16,8 @@ import { TooltipDirective } from './directives';
     ActionButtonComponent,
     LoaderComponent,
     ModalComponent,
-    TooltipDirective
+    TooltipDirective,
+    DatePickerComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +30,8 @@ import { TooltipDirective } from './directives';
     ActionButtonComponent,
     LoaderComponent,
     ModalComponent,
-    TooltipDirective
+    TooltipDirective,
+    DatePickerComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
