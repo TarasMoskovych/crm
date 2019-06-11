@@ -33,4 +33,8 @@ export class MaterialService {
     });
   }
 
+  static initializeTap(ref: ElementRef) {
+    return M.TapTarget.init(ref.nativeElement);
+  }
+
 }

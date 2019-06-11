@@ -7,7 +7,8 @@ import {
   ActionButtonComponent,
   LoaderComponent,
   ModalComponent ,
-  DatePickerComponent
+  DatePickerComponent,
+  TapComponent
 } from './components';
 import { TooltipDirective } from './directives';
 
@@ -17,7 +18,8 @@ import { TooltipDirective } from './directives';
     LoaderComponent,
     ModalComponent,
     TooltipDirective,
-    DatePickerComponent
+    DatePickerComponent,
+    TapComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { TooltipDirective } from './directives';
     LoaderComponent,
     ModalComponent,
     TooltipDirective,
-    DatePickerComponent
+    DatePickerComponent,
+    TapComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
