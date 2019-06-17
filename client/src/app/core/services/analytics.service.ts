@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { CoreModule } from './../core.module';
-import { Overview } from 'src/app/shared/models';
+import { Analytic, Overview } from 'src/app/shared/models';
 import { hadleHttpError } from 'src/app/shared/services/helpers';
 
 @Injectable({
@@ -18,6 +18,8 @@ export class AnalyticsService {
     return this.http.get<Overview>('/api/analytic/overview').pipe(catchError(hadleHttpError));
   }
 
-  getAnalytics() {}
+  getAnalytics(): Observable<Analytic> {
+    return this.http.get<Analytic>('/api/analytic/analytics').pipe(catchError(hadleHttpError));
+  }
 
 }

@@ -1,14 +1,17 @@
-const Order = require('./../models/Order');
-const calculateOverview = require('./../services/analytic');
+const { calculateOverview, calculateAnalytic } = require('./../services/analytic');
 const errorHandler = require('./../helpers/errorHandler');
 
-module.exports.analytic = (req, res) => {
-
+module.exports.analytic = async(req, res) => {
+  try {
+    res.status(200).json(await calculateAnalytic(req.user.id));
+  } catch(e) {
+    errorHandler(res, e);
+  }
 };
 
 module.exports.overview = async(req, res) => {
   try {
-    res.status(200).json(calculateOverview(await Order.find({ user: req.user.id }).sort({ date: 1 })));
+    res.status(200).json(await calculateOverview(req.user.id));
   } catch(e) {
     errorHandler(res, e);
   }

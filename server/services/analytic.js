@@ -1,6 +1,9 @@
 const moment = require('moment');
+const Order = require('./../models/Order');
 
-module.exports = calculateOverview = (orders) => {
+const calculateOverview = async(id) => {
+  const orders = await getOrders(id);
+
   const ordersMap = getOrdersMap(orders);
   const yesterdayOrders = ordersMap[moment().add(-1, 'd').format('DD.MM.YYYY')] || [];
 
@@ -31,6 +34,27 @@ module.exports = calculateOverview = (orders) => {
     }
   }
 };
+
+const calculateAnalytic = async(id) => {
+  const orders = await getOrders(id);
+  const ordersMap = getOrdersMap(orders);
+
+  const average = +(calculatePrice(orders) / Object.keys(ordersMap).length).toFixed(2);
+  const chart = Object.keys(ordersMap).map(label => {
+    const gain  = calculatePrice(ordersMap[label]);
+    const order = ordersMap[label].length;
+
+    return { label, order, gain };
+  });
+
+  return { average, chart };
+};
+
+module.exports = { calculateOverview, calculateAnalytic };
+
+function getOrders(id) {
+  return Order.find({ user: id }).sort({ date: 1 });
+}
 
 function getOrdersMap(orders = []) {
   const daysOrders = {};
