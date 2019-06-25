@@ -34,8 +34,4 @@ import { TokenInterceptor } from './core/interceptors';
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule {
-  constructor(router: Router) {
-    console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
-  }
-}
+export class AppModule { }
