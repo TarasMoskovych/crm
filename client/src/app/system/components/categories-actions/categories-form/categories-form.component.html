@@ -57,8 +57,8 @@
 
   <div class="col s12 l4 center">
     <img *ngIf="imgPreview; else loader" class="responsive-img" style="height: 200px" [src]="imgPreview">
-    <ng-template *ngIf="!create" #loader>
-      <app-loader></app-loader>
+    <ng-template #loader>
+      <app-loader *ngIf="!create"></app-loader>
     </ng-template>
   </div>
 </div>
