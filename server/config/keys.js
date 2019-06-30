@@ -1,4 +1,1 @@
-module.exports = {
-  mongoURI: 'mongodb+srv://admin:1111@cluster0-gihtn.mongodb.net/crm?retryWrites=true',
-  jwt: 'dev-jwt'
-};
+process.env.NODE_ENV === 'production' ? module.exports = require('./keys.prod') : module.exports = require('./keys.dev');
