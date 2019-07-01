@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -36,5 +37,16 @@ app.use('/api/analytic', analytic);
 app.use('/api/category', category);
 app.use('/api/order', order);
 app.use('/api/position', position);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/dist/crm-client'));
+  app.get('*', (req, res) => {
+    res.sendFile(
+      path.resolve(
+        __dirname, 'client', 'dist', 'crm-client', 'index.html'
+      )
+    );
+  });
+}
 
 module.exports = app;
