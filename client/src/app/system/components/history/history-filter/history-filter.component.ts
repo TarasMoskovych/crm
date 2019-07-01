@@ -21,7 +21,7 @@ export class HistoryFilterComponent {
 
     if (this.order) { obj.order = this.order; }
     if (this.startDate) { obj.start = this.startDate; }
-    if (this.endDate) { obj.end = this.startDate; }
+    if (this.endDate) { obj.end = this.endDate; }
 
     this.filter.emit(obj);
   }
