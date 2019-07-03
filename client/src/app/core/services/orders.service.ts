@@ -22,8 +22,8 @@ export class OrdersService {
     return this.http.post<Order>('/api/order', order).pipe(catchError(hadleHttpError));
   }
 
-  get(params: any = {}): Observable<Order[]> {
-    return this.http.get<Order[]>('/api/order', {
+  get(params: any = {}): Observable<{ orders: Order[], length: number }> {
+    return this.http.get<{ orders: Order[], length: number }>('/api/order', {
       params: new HttpParams({
         fromObject: params
       })

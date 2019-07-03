@@ -56,11 +56,11 @@ export class HistoryComponent implements OnInit, OnDestroy {
       offset: this.offset, limit: this.limit
     });
 
-    this.s$ = this.ordersService.get(params).subscribe((orders: Order[]) => {
-      this.orders = [...this.orders, ...orders];
+    this.s$ = this.ordersService.get(params).subscribe((data: { orders: Order[], length: number }) => {
+      this.orders = [...this.orders, ...data.orders];
       this.viewMoreLoading = false;
       this.reloading = false;
-      this.isMoreOrders = orders.length >= STEP;
+      this.isMoreOrders = data.length > this.orders.length;
     });
   }
 

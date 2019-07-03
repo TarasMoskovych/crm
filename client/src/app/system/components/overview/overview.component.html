@@ -11,22 +11,24 @@
       <div class="card-content">
         <span class="card-title">Gain:</span>
         <h3>{{ data.gain.yesterday }}</h3>
-        <h3
-          class="m0 mb1"
-          [ngClass]="{
-            'green-text text-darken-2': data.gain.isHigher,
-            'red-text text-darken-2': !data.gain.isHigher
-          }">
-          <i class="material-icons">
-            {{ data.gain.isHigher ? 'arrow_upward' : 'arrow_downward' }}
-          </i>
-          {{ data.gain.percent }}
-        </h3>
-        <p>
-          The gain of your business for yesterday was
-          {{ data.gain.percent }} {{ data.gain.isHigher ? 'higher' : 'lower' }}
-          than the average: {{ data.gain.compare }} rubles. per day
-        </p>
+        <ng-container *ngIf="data.gain.yesterday > 0">
+          <h3
+            class="m0 mb1"
+            [ngClass]="{
+              'green-text text-darken-2': data.gain.isHigher,
+              'red-text text-darken-2': !data.gain.isHigher
+            }">
+            <i class="material-icons">
+              {{ data.gain.isHigher ? 'arrow_upward' : 'arrow_downward' }}
+            </i>
+            {{ data.gain.percent }}
+          </h3>
+          <p>
+            The gain of your business for yesterday was
+            {{ data.gain.percent }} {{ data.gain.isHigher ? 'higher' : 'lower' }}
+            than the average: {{ data.gain.compare }} rubles. per day
+          </p>
+        </ng-container>
       </div>
     </div>
   </div>
@@ -36,22 +38,24 @@
       <div class="card-content">
         <span class="card-title">Orders:</span>
         <h3>{{ data.orders.yesterday }}</h3>
-        <h3
-          class="m0 mb1"
-          [ngClass]="{
-            'green-text text-darken-2': data.orders.isHigher,
-            'red-text text-darken-2': !data.orders.isHigher
-          }">
-          <i class="material-icons">
-            {{ data.orders.isHigher ? 'arrow_upward' : 'arrow_downward' }}
-          </i>
-          {{ data.orders.percent }}
-        </h3>
-        <p>
-          The number of orders for yesterday at {{ data.orders.percent }}
-          {{ data.orders.isHigher ? 'higher' : 'lower' }} average:
-          {{ data.orders.compare }} orders per day
-        </p>
+        <ng-container *ngIf="data.orders.yesterday > 0">
+          <h3
+            class="m0 mb1"
+            [ngClass]="{
+              'green-text text-darken-2': data.orders.isHigher,
+              'red-text text-darken-2': !data.orders.isHigher
+            }">
+            <i class="material-icons">
+              {{ data.orders.isHigher ? 'arrow_upward' : 'arrow_downward' }}
+            </i>
+            {{ data.orders.percent }}
+          </h3>
+          <p>
+            The number of orders for yesterday at {{ data.orders.percent }}
+            {{ data.orders.isHigher ? 'higher' : 'lower' }} average:
+            {{ data.orders.compare }} orders per day
+          </p>
+        </ng-container>
       </div>
     </div>
   </div>

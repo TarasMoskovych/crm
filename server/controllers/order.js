@@ -26,8 +26,9 @@ module.exports.getAll = async(req, res) => {
 
   try {
     const orders = await Order.find(query).sort({ date: -1 }).skip(+req.query.offset).limit(+req.query.limit);
+    const length = (await Order.find({ user: req.user.id })).length;
 
-    res.status(200).json(orders);
+    res.status(200).json({ orders , length });
   } catch(e) {
     errorHandler(res, e);
   }
