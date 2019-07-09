@@ -10,7 +10,7 @@
     <div class="card light-blue lighten-2 white-text">
       <div class="card-content">
         <span class="card-title">Gain:</span>
-        <h3>{{ data.gain.yesterday }}</h3>
+        <h3>{{ data.gain.yesterday | currency }}</h3>
         <h3
           class="m0 mb1"
           [ngClass]="{
@@ -20,12 +20,12 @@
           <i class="material-icons">
             {{ data.gain.isHigher ? 'arrow_upward' : 'arrow_downward' }}
           </i>
-          {{ data.gain.percent }}
+          {{ data.gain.percent / 100 | percent }}
         </h3>
         <p>
           The gain of your business for yesterday was
-          {{ data.gain.percent }} {{ data.gain.isHigher ? 'higher' : 'lower' }}
-          than the average: {{ data.gain.compare }} rubles. per day
+          {{ data.gain.percent / 100 | percent }} {{ data.gain.isHigher ? 'higher' : 'lower' }}
+          than the average: {{ data.gain.compare | currency }} per day.
         </p>
       </div>
     </div>
@@ -45,12 +45,12 @@
           <i class="material-icons">
             {{ data.orders.isHigher ? 'arrow_upward' : 'arrow_downward' }}
           </i>
-          {{ data.orders.percent }}
+          {{ data.orders.percent / 100 | percent }}
         </h3>
         <p>
-          The number of orders for yesterday at {{ data.orders.percent }}
+          The number of orders for yesterday at {{ data.orders.percent / 100 | percent }}
           {{ data.orders.isHigher ? 'higher' : 'lower' }} average:
-          {{ data.orders.compare }} orders per day
+          {{ data.orders.compare }} orders per day.
         </p>
       </div>
     </div>
